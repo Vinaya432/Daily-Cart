@@ -1,26 +1,39 @@
 <div style="height: 100vh;" class="w-100 container d-flex justify-content-center align-items-center">
-    <div class="row border w-75 shadow rounded">
+    <div class="row border w-75 shadow rounded p-5">
         <div class="col col-lg-6">
-            <img src="https://i.pinimg.com/564x/6b/1b/22/6b1b22573f9f3d4bba11a9fa5cb45652.jpg" alt="">
+            <img src="https://t3.ftcdn.net/jpg/05/56/55/06/360_F_556550658_HdTG42xb5HCJENnAJ9FtanFpITpRvK67.jpg" alt="">
         </div>
-        <div style="background-color: rgb(59, 138, 241);" class="col col-lg-6 d-flex align-items-center flex-column justify-content-center">
+        <div style="background-color: rgb(79, 150, 242);" class="col col-lg-6 d-flex align-items-center flex-column justify-content-center p-4">
             <h3 style="font-family: Dancing Script, cursive;" class="text-light fw-bolder mb-2">Welcome User</h3>
-            <div class="form-floating mb-3">
-                <input  type="text" class="form-control" id="uname" placeholder="Enter user name">
-                <label for="uname">User Name</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input  type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
-            </div>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
-            </div>
-            <button class="btn mt-5 ">Register</button>
-            <p>Already have an Account ? Click here to <a routerLink="/login">Login</a></p>
+            <form [formGroup]="registerForm">
+                <div class="form-floating mb-3">
+                    <input name="username" formControlName="username"  type="text" class="form-control" id="uname" placeholder="Enter user name">
+                    <label for="uname">User Name</label>
+                </div>
+                <!-- validation using reactive forms -->
+                <div *ngIf="registerForm.get('username')?.errors && registerForm.get('username')?.touched " class="mb-3 text-danger fw-bold">*Invalid Username</div>
+                
+                <div class="form-floating mb-3">
+                    <input name="email" formControlName="email"  type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div *ngIf="registerForm.get('email')?.errors && registerForm.get('email')?.touched " class="mb-3 text-danger fw-bold">*Invalid Email</div>
+
+                <div class="form-floating">
+                    <input name="password" formControlName="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div *ngIf="registerForm.get('password')?.errors && registerForm.get('password')?.touched " class="mb-3 text-danger fw-bold">*Invalid Password</div>
+
+            </form>
+            <button (click)="handleRegister()" class="btn mt-3 btn-light rounded-pill mb-3 px-3">Register</button>
+            <p>Already have an Account ? Click here to <a routerLink="/login" class="text-light fw-bolder">Login</a></p>
 
         </div>
     </div>
 </div>
+
+<!-- {{registerForm.value.username}}
+{{registerForm.value.email}}
+{{registerForm.value.password}} -->
 

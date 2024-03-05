@@ -5,15 +5,21 @@
         </div>
         <div style="background-color: rgb(59, 138, 241);" class="col col-lg-6 d-flex align-items-center flex-column justify-content-center">
             <h3 style="font-family: Dancing Script, cursive;" class="text-light fw-bolder mb-2">Welcome User!!!</h3>
-            <div class="form-floating mb-3">
-                <input  type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
-            </div>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
-            </div>
-            <button class="btn mt-5 btn-light">Login</button>
+            <form [formGroup]="loginForm">
+                <div class="form-floating mb-3">
+                    <input name="email" formControlName="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <!-- validation using reactive forms -->
+                <div *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.touched "  class="mb-3 text-danger fw-bold">*Invalid Email</div>
+                <div class="form-floating">
+                    <input name="password" formControlName="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <!-- validation using reactive forms -->
+                <div *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched " class="mb-3 text-danger fw-bold">*Invalid Password</div>
+                <button (click)="handleLogin()" class="btn mt-5 btn-light">Login</button>
+            </form>
             <p class="mt-2">New user? Click here to <a routerLink="/register" class="text-light">Register</a></p>
 
         </div>
