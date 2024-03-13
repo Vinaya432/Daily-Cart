@@ -1,3 +1,5 @@
+<app-header></app-header>
+ 
  <!-- Header-->
  <header class="mt-5">
     <div id="carouselExample" class="carousel slide " data-bs-ride="carousel">
@@ -28,7 +30,8 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div *ngFor="let product of allProducts" class="col mb-5">
+            <div *ngIf="(allProducts | search:searchKey).length===0" class="text-center mt-5 text-warning fw-bold fs-1 w-100 mb-5">Product Not Found</div>
+            <div *ngFor="let product of allProducts | search:searchKey " class="col mb-5">
                 <div class="card h-100 p-2">
                     <!-- Product image-->
                     <img height="200px" width="200px" routerLink="/view/{{product.id}}" class="card-img-top" [src]="product.image" alt="product-img" />
@@ -44,8 +47,8 @@
                     <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                         <div class="d-flex justify-content-between">
-                            <button class="btn"><i class="fa-solid fa-heart text-danger"></i></button>
-                            <button class="btn"><i class="fa-solid fa-cart-plus text-success"></i></button>
+                            <button (click)="addTowishList(product)" class="btn"><i class="fa-solid fa-heart text-danger"></i></button>
+                            <button (click)="addToCart(product)" class="btn"><i class="fa-solid fa-cart-plus text-success"></i></button>
                         </div>
                     </div>
                 </div>

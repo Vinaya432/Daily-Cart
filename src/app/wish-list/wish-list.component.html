@@ -1,25 +1,31 @@
+<app-header></app-header>
 <!-- Section-->
 <section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div class="col mb-5">
-                <div class="card h-100">
+    <div *ngIf="allProducts.length==0" class="d-flex justify-content-center align-items-center flex-column">
+        <img src="https://assets-v2.lottiefiles.com/a/d0cb7d2c-1177-11ee-b923-631c8e0c62f1/zFWwlidZ0R.gif" alt="">
+        <h2>Your wishlist is Empty!!!</h2>
+    </div>
+    <div *ngIf="allProducts.length!=0" class=" px-4 px-lg-5 mt-5">
+        <h1 class="mb-3" style="color: rgb(94, 29, 5);">Your Wishist</h1>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">   
+            <div *ngFor="let item of allProducts" class="col mb-5">
+                <div class="card h-100 p-3">
                     <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                    <img height="200px"  class="card-img-top" [src]="item.image" alt="..." />
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">
                             <!-- Product name-->
-                            <h5 class="fw-bolder">Fancy Product</h5>
+                            <h5 class="fw-bolder">{{item.title.slice(0,20)}}...</h5>
                             <!-- Product price-->
-                            $40.00 - $80.00
+                           <p class="fw-bold"> $ {{item.price}}</p>
                         </div>
                     </div>
                     <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="card-footer  border-top-0 bg-transparent">
                         <div class="d-flex justify-content-between">
-                            <button><i class="fa-solid fa-heart-circle-xmark text-danger"></i></button>
-                            <button><i class="fa-solid fa-cart-plus text-success"></i></button>
+                            <button (click)="removeItem(item._id)" class="btn"><i class="fa-solid fa-heart-circle-xmark text-danger"></i></button>
+                            <button (click)="addToCart(item)" class="btn"><i class="fa-solid fa-cart-plus text-success"></i></button>
                         </div>
                     </div>
                 </div>

@@ -7,19 +7,29 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class=" ms-auto mb-2 mb-lg-0 navbar-nav">
             <li class="nav-item" >
-                <input style="width: 400px;" class="form-control me-2" type="search" placeholder="Search by Product name" aria-label="Search">
+                <div class="d-flex">
+                  <input (keyup)="getSearchTerm($event)" style="width: 400px;" class="form-control me-2" type="search" placeholder="Search by Product name" aria-label="Search">
+                  <button  style="margin-left: -45px;" class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
             </li>
           <li class="nav-item">
-            <button class="btn  btn-outline-dark" type="submit" routerLink="/wishlist"><i class="fa-solid fa-heart fa-beat text-danger me-2"></i>WishList <span class="badge text-dark">0</span></button>
+            <button class="btn  btn-outline-dark" type="submit" routerLink="/wishlist"><i class="fa-solid fa-heart fa-beat text-danger me-2"></i>WishList <span class="badge text-dark">{{wishListCount}}</span></button>
           </li>
           <li class="nav-item ms-2">
-            <button class="btn  btn-outline-dark" type="submit" routerLink="/cart"><i class="fa-solid fa-cart-plus text-success me-2"></i>Cart<span class="badge text-dark">0</span></button>
+            <button class="btn  btn-outline-dark" type="submit" routerLink="/cart"><i class="fa-solid fa-cart-plus fa-beat text-success me-2"></i>Cart<span class="badge text-dark">{{cartCount}}</span></button>
           </li>
-          <li class="nav-item me-2">
+          <li *ngIf="!loginUsername" class="nav-item me-2">
             <a class="nav-link" routerLink="/login"><i class="fa-solid fa-user"></i>Login</a>
+          </li>
+          <li *ngIf="loginUsername" class="nav-item d-flex">
+            <a class="nav-link"><i class="fa-solid fa-user"></i>{{loginUsername}}</a>
+            <button (click)="logOut()" class="btn btn-info"><i class="fa-solid fa-gears me-2"></i>LogOut</button>
           </li>
           
         </ul>
       </div>
     </div>
-  </nav>
+</nav>
+<!-- (click)="getSearchTerm(search)" -->
+
+<!-- [(ngModel)]="searchKey" -->
